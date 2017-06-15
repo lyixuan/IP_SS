@@ -1,0 +1,8 @@
+.el-tabs__item {
+  padding: 0 40px!important;
+}
+
+.el-tabs__nav-wrap {
+  width: 600px!important;
+  margin: 10px auto 0!important;
+}
