@@ -11,9 +11,18 @@
       <div class="d2">
         轻赚APP是学生党、上班族、家庭主妇、自由职业等赚钱的首选，让我们一起开启赚钱之旅吧！
       </div>
+
+      <div class="d2">
+        分享给朋友,朋友注册时,填写你的专属分享码,即可成为你的下级代理。代理分位 A B C三级,B是A的下级代理,C是B的下级代理。
+        A级代理将额外获得B级代理佣金的50%作为奖励,获得C级代理25%的佣金作为奖励,B级代理额外获得C级的代理50%的额外奖励,下级代理佣金不减少。
+      </div>
+
+      <div class="d2">
+        登录查看我的分享码
+      </div>
     </div>
     <div class="down">
-      <a href="../static/download/qingzhuan.apk"><el-button type="info">下载"轻赚"一起赚</el-button></a>
+      <a href="/download/qingzhuan.apk"><el-button type="info">下载"轻赚"一起赚</el-button></a>
     </div>
 
   </div>
@@ -28,6 +37,7 @@
       }
     },
     mounted(){
+
     },
     methods: {
     }

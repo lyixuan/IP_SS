@@ -3,10 +3,11 @@
     <template>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="概览" name="dashboard"></el-tab-pane>
+        <el-tab-pane label="数据导入" name="importy"></el-tab-pane>
         <el-tab-pane label="统计" name="statistics"></el-tab-pane>
         <el-tab-pane label="配置" name="deploy"></el-tab-pane>
-        <el-tab-pane label="版本更新" name="upgrade"></el-tab-pane>
         <el-tab-pane label="下载" name="download"></el-tab-pane>
+        <el-tab-pane label="版本更新" name="upgrade"></el-tab-pane>
       </el-tabs>
     </template>
     <router-view></router-view>
