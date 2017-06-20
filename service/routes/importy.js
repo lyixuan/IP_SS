@@ -12,32 +12,35 @@ router.get('/gaoyong', function (req, res, next) {
 });
 
 router.get('/gaoyong', function (req, res) {
-    var resp = parse(req.query.filenames, req.query.category, req.query.platform);
-    res.json(resp);
+    var resp = parse(req.query.filenames, req.query.category, req.query.platform,res);
+
 });
 
-function parse(filenames, category, platform) {
-    var resp = {
-        code:200,
-        msg:'解析成功'
+function parse(filenames, category, platform,res) {
+    var resp={
+        code:-1,
+        msg:'解析未完成'
     };
+    var count=0;
     var filePath = '/var/files/excel/' + filenames +'.xls';   // filenames暂时未一个文件名
     var file;
     try {
         file = fs.readFileSync(filePath);
     } catch (e) {
-        return resp={
+        resp={
             code:-1,
             msg:'找不到文件:' + filePath
         };
+        res.json(resp);
     }
 
     var excelData = xlsx.parse(file)[0].data;
     if (!excelData) {
-        return resp={
+        resp={
             code:-1,
             msg:'文件数据为空'
         };
+        res.json(resp);
     }
     var keyLine = excelData[0];
     var keyArr = transformKey(keyLine);
@@ -47,21 +50,25 @@ function parse(filenames, category, platform) {
         var curData = excelData[i];
         if (curData.length == 0) continue;
         dataArr += ' ' + changeToJson(curData, keyArr, category, platform);
+        count++;
     }
 
     var jsonPath = '/var/files/json/goods.'+(new Date().Format("yyyy-MM-dd hh:mm:ss"))+'.json';
     var logPath = '/var/files/log/'+(new Date().Format("yyyy-MM-dd"))+'.log';
     fs.writeFile(jsonPath, dataArr, function (err) {
         if (err) throw err;
+        resp.code = 200;
+        resp.msg = "解析完成";
         resp.data={
-            successLines: excelData.length,
+            successLines: count,
+            parseFile:filePath,
             saveFile:jsonPath
-        }
+        };
+        fs.appendFile(logPath, JSON.stringify(resp), function (err) {
+            if (err) throw err;
+        });
+        res.json(resp);
     });
-    fs.appendFile(logPath, JSON.stringify(resp), function (err) {
-        if (err) throw err;
-    });
-    return resp
 }
 
 

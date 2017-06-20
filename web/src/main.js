@@ -14,6 +14,7 @@ Vue.use(VueResource)
 window.BASE_PATH ='http://' +window.location.host+':3000/'
 
 /* eslint-disable no-new */
+require('../static/tool')
 new Vue({
   el: '#app',
   router,

@@ -30,6 +30,36 @@
           <el-input class="texta" type="textarea" v-model="form.filenames" placeholder="填写类型为.xls的excel文件名"></el-input>
         </el-form-item>
       </el-form>
+      <div class="result" v-if="isSuccess">
+        解析及导入结果: 成功   --{{time}}
+        <p>
+          解析文件: {{result.parseFile}}
+        </p>
+        <p>
+          生成文件: {{result.saveFile}}
+        </p>
+        <p>
+          成功解析: {{result.lines}} 行
+        </p>
+        <p>
+          成功导入: {{result.insert}} 行
+        </p>
+      </div>
+      <div class="result2" v-if="isFail">
+        解析及导入结果: 失败    --{{time}}
+        <p>
+          解析文件: {{result.parseFile}}
+        </p>
+        <p>
+          生成文件: {{result.saveFile}}
+        </p>
+        <p>
+          成功解析: {{result.lines}} 行
+        </p>
+        <p>
+          成功导入: {{result.insert}} 行
+        </p>
+      </div>
     </el-card>
   </div>
 </template>
@@ -43,7 +73,16 @@
           category: '精选',
           platform: '天猫',
           filenames: ''
-        }
+        },
+        result:{
+          lines:0,
+          insert:0,
+          parseFile:'',
+          saveFile:''
+        },
+        isSuccess:false,
+        isFail:false,
+        time:''
       }
     },
     methods: {
@@ -59,13 +98,20 @@
 
         var params = this.form;
         this.$resource(BASE_PATH + 'importy/gaoyong').get(params).then((response) => {
+          this.time = new Date().Format('yyyy-MM-dd hh:mm:ss');
           if (response.status == 200) {
             if(response.body.code == 200){
+              var data =response.body.data;
+              this.result.lines =data.successLines;
+              this.result.parseFile =data.parseFile;
+              this.result.saveFile =data.saveFile;
               this.$message({
                 showClose: true,
-                message: '成功解析行数:'+response.body.data.successLines,
+                message: '解析excel完成',
                 type: 'success'
               });
+              this.isSuccess = true;
+
             } else{
               this.$message({
                 showClose: true,
@@ -95,5 +141,14 @@
 
   .texta {
     width: 200px !important;
+  }
+
+  .result,.result2{
+    text-align: left;
+    font-size: 13px;
+    color: #00AA00;
+    padding-left: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
   }
 </style>
