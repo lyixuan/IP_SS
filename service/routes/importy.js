@@ -21,14 +21,14 @@ function parse(filenames, category, platform) {
         code:200,
         msg:'解析成功'
     };
-    var filePath = '/var/www/files/excel/' + filenames +'.xls';   // filenames暂时未一个文件名
+    var filePath = '/var/files/excel/' + filenames +'.xls';   // filenames暂时未一个文件名
     var file;
     try {
         file = fs.readFileSync(filePath);
     } catch (e) {
         return resp={
             code:-1,
-            msg:'找不到文件'
+            msg:'找不到文件:' + filePath
         };
     }
 
@@ -49,8 +49,8 @@ function parse(filenames, category, platform) {
         dataArr += ' ' + changeToJson(curData, keyArr, category, platform);
     }
 
-    var jsonPath = '/var/www/files/json/goods.'+(new Date().Format("yyyy-MM-dd hh:mm:ss"))+'.json';
-    var logPath = '/var/www/files/log/'+(new Date().Format("yyyy-MM-dd"))+'.log';
+    var jsonPath = '/var/files/json/goods.'+(new Date().Format("yyyy-MM-dd hh:mm:ss"))+'.json';
+    var logPath = '/var/files/log/'+(new Date().Format("yyyy-MM-dd"))+'.log';
     fs.writeFile(jsonPath, dataArr, function (err) {
         if (err) throw err;
         resp.data={

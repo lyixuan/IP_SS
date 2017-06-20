@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueResource)
 
-window.BASE_PATH = '/'
+window.BASE_PATH ='http://' +window.location.host+':3000/'
 
 /* eslint-disable no-new */
 new Vue({
