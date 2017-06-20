@@ -36,6 +36,9 @@
           解析文件: {{result.parseFile}}
         </p>
         <p>
+          生成文件: {{result.saveFile}}
+        </p>
+        <p>
           成功解析: {{result.lines}} 行
         </p>
         <p>
@@ -46,6 +49,9 @@
         解析及导入结果: 失败 --{{time}}
         <p>
           解析文件: {{result.parseFile}}
+        </p>
+        <p>
+          生成文件: {{result.saveFile}}
         </p>
         <p>
           成功解析: {{result.lines}} 行
@@ -59,7 +65,6 @@
 </template>
 
 <script>
-  import $ from 'jquery'
   export default {
     name: 'hello',
     data () {
@@ -73,10 +78,11 @@
           lines: 0,
           insert: 0,
           parseFile: '',
+          saveFile: ''
         },
         isSuccess: false,
         isFail: false,
-        time: '',
+        time: ''
       }
     },
     methods: {
@@ -90,24 +96,21 @@
           return
         }
         var params = this.form;
-        this.$message({
-          message: 'excel解析中,请等待...',
-          type: 'info'
-        });
         this.$resource(BASE_PATH + 'importy/gaoyong').get(params).then((response) => {
-
+          this.time = new Date().Format('yyyy-MM-dd hh:mm:ss');
           if (response.status == 200) {
             if (response.body.code == 200) {
-              var rst = response.body.data;
-
-              this.result.lines = rst.successLines;
-              this.result.parseFile = rst.parseFile;
-
+              var data = response.body.data;
+              this.result.lines = data.successLines;
+              this.result.parseFile = data.parseFile;
+              this.result.saveFile = data.saveFile;
               this.$message({
-                message: '数据入库中,请等待...',
-                type: 'info'
+                showClose: true,
+                message: '解析excel完成',
+                type: 'success'
               });
-              this.httpInsert(rst.result)
+              this.isSuccess = true;
+              this.filenames = ''
 
             } else {
               this.$message({
@@ -123,48 +126,6 @@
               type: 'error'
             });
           }
-        })
-      },
-      httpInsert(requestArr){
-        var _this = this;
-        $.ajax({
-          "url": "https://d.apicloud.com/mcm/api/batch",
-          "type": "POST",
-          "cache": false,
-          "headers": {
-            "X-APICloud-AppId": "A6948762860633",
-            "X-APICloud-AppKey": "8a8707f56a82ad6342ddb88cc55a0de5bc848a5a.1495529949235"
-          },
-          "data": {
-            "requests": requestArr
-          }
-        }).done(function (data, status, header) {
-          _this.time = new Date().Format('yyyy-MM-dd hh:mm:ss');
-          if (status == 'success') {
-            _this.result.insert = data.length;
-            _this.filenames = '';
-            _this.isSuccess = true;
-            _this.$message({
-              showClose: true,
-              message: '解析并插入成功',
-              type: 'success'
-            });
-
-          } else {
-            _this.result.insert = data.length;
-            _this.isFail = true;
-            _this.$message({
-              showClose: true,
-              message: '插入失败',
-              type: 'warning'
-            });
-          }
-        }).fail(function (header, status, errorThrown) {
-          _this.$message({
-            showClose: true,
-            message: JSON.stringify(status + ' : ' + errorThrown),
-            type: 'error'
-          });
         })
       }
     }
@@ -188,8 +149,5 @@
     padding-left: 20px;
     padding-top: 20px;
     border-top: 1px solid #ccc;
-  }
-  .result2 {
-    color: red;
   }
 </style>

@@ -12,72 +12,72 @@ router.get('/gaoyong', function (req, res, next) {
 });
 
 router.get('/gaoyong', function (req, res) {
-    var resp = parse(req.query.filenames, req.query.category, req.query.platform, res);
+    var resp = parse(req.query.filenames, req.query.category, req.query.platform,res);
 
 });
 
-function parse(filenames, category, platform, res) {
-    var resp = {
-        code: -1,
-        msg: '解析未完成'
+function parse(filenames, category, platform,res) {
+    var resp={
+        code:-1,
+        msg:'解析未完成'
     };
-    var count = 0;
-    var filePath = '/var/files/excel/' + filenames + '.xls';   // filenames暂时未一个文件名
+    var count=0;
+    var filePath = '/var/files/excel/' + filenames +'.xls';   // filenames暂时未一个文件名
     var file;
     try {
         file = fs.readFileSync(filePath);
     } catch (e) {
-        resp = {
-            code: -1,
-            msg: '找不到文件:' + filePath
+        resp={
+            code:-1,
+            msg:'找不到文件:' + filePath
         };
         res.json(resp);
     }
 
     var excelData = xlsx.parse(file)[0].data;
     if (!excelData) {
-        resp = {
-            code: -1,
-            msg: '文件数据为空'
+        resp={
+            code:-1,
+            msg:'文件数据为空'
         };
         res.json(resp);
     }
     var keyLine = excelData[0];
     var keyArr = transformKey(keyLine);
-    var requests = [];
+    var dataArr = '';
 
     for (var i = 1; i < excelData.length; i++) {
         var curData = excelData[i];
         if (curData.length == 0) continue;
-        var request = {
-            "method": "POST",
-            "path": "/mcm/api/goods",
-            "body": changeToAjax(curData, keyArr, category, platform)
-        };
-        requests.push(request);
+        dataArr += ' ' + changeToJson(curData, keyArr, category, platform);
         count++;
     }
-    resp.code = 200;
-    resp.msg = "解析成功";
-    resp.data ={
-        successLines:count,
-        parseFile:filePath,
-        result:requests
-    };
-    res.json(resp);
 
-    // var logPath = '/var/files/log/' + (new Date().Format("yyyy-MM-dd")) + '.log';
-    // fs.appendFile(logPath, JSON.stringify(resp), function (err) {
-    //     if (err) throw err;
-    // });
+    var jsonPath = '/var/files/json/goods.'+(new Date().Format("yyyy-MM-dd hh:mm:ss"))+'.json';
+    var logPath = '/var/files/log/'+(new Date().Format("yyyy-MM-dd"))+'.log';
+    fs.writeFile(jsonPath, dataArr, function (err) {
+        if (err) throw err;
+        resp.code = 200;
+        resp.msg = "解析完成";
+        resp.data={
+            successLines: count,
+            parseFile:filePath,
+            saveFile:jsonPath
+        };
+        fs.appendFile(logPath, JSON.stringify(resp), function (err) {
+            if (err) throw err;
+        });
+        res.json(resp);
+    });
 }
 
-function changeToAjax(curData, keyArr, category, platform) {
+
+function changeToJson(curData, keyArr, category, platform) {
     var obj = {category: category, platform: platform};
     for (var c = 0; c < keyArr.length; c++) {
         obj[keyArr[c]] = curData[c];
     }
-    return obj;
+    return JSON.stringify(obj);
 }
 
 function transformKey(arr) {
