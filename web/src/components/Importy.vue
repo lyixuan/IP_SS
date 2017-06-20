@@ -142,7 +142,7 @@
           _this.time = new Date().Format('yyyy-MM-dd hh:mm:ss');
           if (status == 'success') {
             _this.result.insert = data.length;
-            _this.filenames = '';
+            _this.form.filenames = '';
             _this.isSuccess = true;
             _this.$message({
               showClose: true,
