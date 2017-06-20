@@ -1,0 +1,457 @@
+[
+  {
+    "base": "AccessToken",
+    "plural": "accessToken"
+  },
+  {
+    "base": "User",
+    "plural": "user",
+    "properties": {
+      "uPassword": {
+        "type": "String"
+      },
+      "nickName": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      },
+      "superiorAgent": {
+        "type": "String"
+      },
+      "invateCode": {
+        "type": "String"
+      }
+    },
+    "acls": [
+      {
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "DENY"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "create"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "deleteById"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "removeById"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "login"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "logout"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "findById"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "updateAttributes"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "confirm"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "verifyEmail"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "resetPasswordRequest"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "resetPassword"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "exists"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "find"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "count"
+      },
+      {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "ALLOW",
+        "property": "findOne"
+      }
+    ],
+    "relations": {
+      "accessTokens": {
+        "type": "Relation",
+        "model": "accessToken",
+        "foreignKey": "userId"
+      },
+      "subordinateAgents": {
+        "type": "Relation",
+        "model": "subordinateAgent",
+        "foreignKey": "userId"
+      },
+      "userShares": {
+        "type": "Relation",
+        "model": "userShare",
+        "foreignKey": "userId"
+      }
+    }
+  },
+  {
+    "base": "RoleMapping",
+    "plural": "roleMapping"
+  },
+  {
+    "base": "Role",
+    "plural": "role",
+    "relations": {
+      "principals": {
+        "type": "Relation",
+        "model": "roleMapping",
+        "foreignKey": "roleId"
+      }
+    }
+  },
+  {
+    "base": "File",
+    "plural": "file"
+  },
+  {
+    "plural": "account",
+    "properties": {
+      "id": {
+        "type": "String",
+        "id": true
+      },
+      "goodId": {
+        "type": "String"
+      },
+      "createTime": {
+        "type": "String"
+      },
+      "clickTime": {
+        "type": "String"
+      },
+      "goodName": {
+        "type": "String"
+      },
+      "sellerWW": {
+        "type": "String"
+      },
+      "sellerShop": {
+        "type": "String"
+      },
+      "goodNum": {
+        "type": "String"
+      },
+      "goodPrice": {
+        "type": "String"
+      },
+      "billStatus": {
+        "type": "String"
+      },
+      "billPlatForm": {
+        "type": "String"
+      },
+      "gCommissionPreAll": {
+        "type": "String"
+      },
+      "gRatio": {
+        "type": "String"
+      },
+      "payPrice": {
+        "type": "String"
+      },
+      "aboutCommission": {
+        "type": "String"
+      },
+      "finalPrice": {
+        "type": "String"
+      },
+      "finalCommission": {
+        "type": "String"
+      },
+      "accountTime": {
+        "type": "String"
+      },
+      "gCommissionPre": {
+        "type": "String"
+      },
+      "gCommission": {
+        "type": "String"
+      },
+      "subsidyPre": {
+        "type": "String"
+      },
+      "subsidyPrice": {
+        "type": "String"
+      },
+      "subsidyType": {
+        "type": "String"
+      },
+      "dealPlatForm": {
+        "type": "String"
+      },
+      "billNo": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "mediaID": {
+        "type": "String"
+      },
+      "mediaName": {
+        "type": "String"
+      },
+      "advID": {
+        "type": "String"
+      },
+      "advName": {
+        "type": "String"
+      }
+    }
+  },
+  {
+    "plural": "rule",
+    "properties": {
+      "id": {
+        "type": "String",
+        "id": true
+      },
+      "ruleName": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },{
+  "plural": "subordinateAgent",
+  "properties": {
+    "id": {
+      "type": "String",
+      "id": true
+    },
+    "userId": {
+      "type": "String"
+    },
+    "username": {
+      "type": "String"
+    }
+  }
+},
+  {
+    "plural": "goods",
+    "properties": {
+      "id": {
+        "type": "String",
+        "id": true
+      },
+      "goodId": {
+        "type": "String"
+      },
+      "goodName": {
+        "type": "String"
+      },
+      "goodPic": {
+        "type": "String"
+      },
+      "goodPrice": {
+        "type": "String"
+      },
+      "goodMonthlySales": {
+        "type": "String"
+      },
+      "goodIncomeRatio": {
+        "type": "String"
+      },
+      "goodIncomePrice": {
+        "type": "String"
+      },
+      "goodActiveRatio": {
+        "type": "String"
+      },
+      "goodActivePrice": {
+        "type": "String"
+      },
+      "activeBegin": {
+        "type": "String"
+      },
+      "activeEnd": {
+        "type": "String"
+      },
+      "goodTKSLink": {
+        "type": "String"
+      },
+      "goodTKLink": {
+        "type": "String"
+      },
+      "goodTKPWD": {
+        "type": "String"
+      },
+      "ticketGross": {
+        "type": "String"
+      },
+      "ticketRemain": {
+        "type": "String"
+      },
+      "ticketPrice": {
+        "type": "String"
+      },
+      "ticketBegin": {
+        "type": "String"
+      },
+      "ticketEnd": {
+        "type": "String"
+      },
+      "ticketSLink": {
+        "type": "String"
+      },
+      "ticketPWD": {
+        "type": "String"
+      },
+      "category":{
+        "type": "String"
+      },
+      "platform":{
+        "type": "String"
+      }
+    }
+  },
+  {
+    "plural": "shares",
+    "properties": {
+      "id": {
+        "type": "String",
+        "id": true
+      },
+      "goodId": {
+        "type": "String"
+      },
+      "goodName": {
+        "type": "String"
+      },
+      "goodPic": {
+        "type": "String"
+      },
+      "goodPrice": {
+        "type": "String"
+      },
+      "goodMonthlySales": {
+        "type": "String"
+      },
+      "goodIncomeRatio": {
+        "type": "String"
+      },
+      "goodIncomePrice": {
+        "type": "String"
+      },
+      "goodActiveRatio": {
+        "type": "String"
+      },
+      "goodActivePrice": {
+        "type": "String"
+      },
+      "activeBegin": {
+        "type": "String"
+      },
+      "activeEnd": {
+        "type": "String"
+      },
+      "goodTKSLink": {
+        "type": "String"
+      },
+      "goodTKLink": {
+        "type": "String"
+      },
+      "goodTKPWD": {
+        "type": "String"
+      },
+      "ticketGross": {
+        "type": "String"
+      },
+      "ticketRemain": {
+        "type": "String"
+      },
+      "ticketPrice": {
+        "type": "String"
+      },
+      "ticketBegin": {
+        "type": "String"
+      },
+      "ticketEnd": {
+        "type": "String"
+      },
+      "ticketSLink": {
+        "type": "String"
+      },
+      "ticketPWD": {
+        "type": "String"
+      },
+      "category":{
+        "type": "String"
+      },
+      "platform":{
+        "type": "String"
+      }
+    }
+  },
+  {
+    "plural": "shareDeal",
+    "properties": {
+      "id": {
+        "type": "String",
+        "id": true
+      },
+      "userId": {
+        "type": "String"
+      }
+    }
+  }
+]
