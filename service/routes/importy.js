@@ -12,7 +12,31 @@ router.get('/gaoyong', function (req, res, next) {
 });
 
 router.get('/gaoyong', function (req, res) {
-    var resp = parse(req.query.filenames, req.query.category, req.query.platform, res);
+    parse(req.query.filenames, req.query.category, req.query.platform, res);
+
+});
+router.get('/delete', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
+router.get('/delete', function (req, res) {
+
+    fs.unlink(req.query.filePath, function (err) {
+        if (err) {
+            var resp = {
+                code: -1,
+                msg: '删除失败'
+            };
+            res.json(resp);
+        }else{
+            var resp = {
+                code: 200,
+                msg: '删除成功'
+            };
+            res.json(resp);
+        }
+
+    })
 
 });
 
@@ -59,10 +83,10 @@ function parse(filenames, category, platform, res) {
     }
     resp.code = 200;
     resp.msg = "解析成功";
-    resp.data ={
-        successLines:count,
-        parseFile:filePath,
-        result:requests
+    resp.data = {
+        successLines: count,
+        parseFile: filePath,
+        result: requests
     };
     res.json(resp);
 

@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span style="line-height: 36px;">高佣商品</span>
-        <el-button type="primary" style="float: right;" @click="parseAndImport()">解析导入数据</el-button>
+        <el-button type="primary" style="float: right;"  @click="parseAndImport()" >解析导入数据</el-button>
       </div>
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="商品归类">
@@ -31,7 +31,7 @@
         </el-form-item>
       </el-form>
       <div class="result" v-if="isSuccess">
-        解析及导入结果: 成功 --{{time}}
+        导入结果: 成功 ========= <span v-if="del">文件已删除</span><span v-if="!del">文件删除失败</span>======={{time}}
         <p>
           解析文件: {{result.parseFile}}
         </p>
@@ -43,7 +43,7 @@
         </p>
       </div>
       <div class="result2" v-if="isFail">
-        解析及导入结果: 失败 --{{time}}
+        导入结果: 失败 --{{time}}
         <p>
           解析文件: {{result.parseFile}}
         </p>
@@ -77,6 +77,7 @@
         isSuccess: false,
         isFail: false,
         time: '',
+        del: true,
       }
     },
     methods: {
@@ -141,14 +142,15 @@
         }).done(function (data, status, header) {
           _this.time = new Date().Format('yyyy-MM-dd hh:mm:ss');
           if (status == 'success') {
+            _this.delFile( _this.result.parseFile);
             _this.result.insert = data.length;
-            _this.form.filenames = '';
             _this.isSuccess = true;
             _this.$message({
               showClose: true,
               message: '解析并插入成功',
               type: 'success'
             });
+
 
           } else {
             _this.result.insert = data.length;
@@ -165,6 +167,30 @@
             message: JSON.stringify(status + ' : ' + errorThrown),
             type: 'error'
           });
+        })
+      },
+      delFile(filePath){
+        let params = {
+          filePath: filePath
+        };
+        let _this = this;
+        this.$resource(BASE_PATH + 'importy/delete').get(params).then((response) => {
+          if (response.body.code == 200) {
+            _this.del = true;
+            _this.$message({
+              showClose: true,
+              message: '插入成功文件已删除',
+              type: 'success'
+            });
+            _this.form.filenames = '';
+          } else {
+            _this.del = false;
+            _this.$message({
+              showClose: true,
+              message: '插入成功文件删除失败',
+              type: 'error'
+            });
+          }
         })
       }
     }
@@ -189,6 +215,7 @@
     padding-top: 20px;
     border-top: 1px solid #ccc;
   }
+
   .result2 {
     color: red;
   }
