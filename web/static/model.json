@@ -157,104 +157,7 @@
   {
     "base": "File",
     "plural": "file"
-  },
-  {
-    "plural": "account",
-    "properties": {
-      "id": {
-        "type": "String",
-        "id": true
-      },
-      "goodId": {
-        "type": "String"
-      },
-      "createTime": {
-        "type": "String"
-      },
-      "clickTime": {
-        "type": "String"
-      },
-      "goodName": {
-        "type": "String"
-      },
-      "sellerWW": {
-        "type": "String"
-      },
-      "sellerShop": {
-        "type": "String"
-      },
-      "goodNum": {
-        "type": "String"
-      },
-      "goodPrice": {
-        "type": "String"
-      },
-      "billStatus": {
-        "type": "String"
-      },
-      "billPlatForm": {
-        "type": "String"
-      },
-      "gCommissionPreAll": {
-        "type": "String"
-      },
-      "gRatio": {
-        "type": "String"
-      },
-      "payPrice": {
-        "type": "String"
-      },
-      "aboutCommission": {
-        "type": "String"
-      },
-      "finalPrice": {
-        "type": "String"
-      },
-      "finalCommission": {
-        "type": "String"
-      },
-      "accountTime": {
-        "type": "String"
-      },
-      "gCommissionPre": {
-        "type": "String"
-      },
-      "gCommission": {
-        "type": "String"
-      },
-      "subsidyPre": {
-        "type": "String"
-      },
-      "subsidyPrice": {
-        "type": "String"
-      },
-      "subsidyType": {
-        "type": "String"
-      },
-      "dealPlatForm": {
-        "type": "String"
-      },
-      "billNo": {
-        "type": "String"
-      },
-      "category": {
-        "type": "String"
-      },
-      "mediaID": {
-        "type": "String"
-      },
-      "mediaName": {
-        "type": "String"
-      },
-      "advID": {
-        "type": "String"
-      },
-      "advName": {
-        "type": "String"
-      }
-    }
-  },
-  {
+  }, {
     "plural": "rule",
     "properties": {
       "id": {
@@ -371,7 +274,28 @@
         "type": "String",
         "id": true
       },
-      "goodId": {
+      "goodCreatedAt": {
+        "type": "String"
+      },
+      "userId": {
+        "type": "String"
+      },
+      "userName": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      },
+      "shareTool": {
+        "type": "String"
+      },
+      "quanHouPrice":{
+        "type": "String"
+      },
+      "yongJinBi":{
+        "type": "String"
+      },
+      "yongJin":{
         "type": "String"
       },
       "goodName": {
@@ -438,6 +362,93 @@
         "type": "String"
       },
       "platform":{
+        "type": "String"
+      }
+    }
+  },
+  {
+    "plural": "shareBill",
+    "properties": {
+      "id": {
+        "type": "String",
+        "id": true
+      },
+      "createTime": {
+        "type": "String"
+      },
+      "clickTime": {
+        "type": "String"
+      },
+      "goodName": {
+        "type": "String"
+      },
+      "goodId": {
+        "type": "String"
+      },
+      "goodShop": {
+        "type": "String"
+      },
+      "goodNum": {
+        "type": "String"
+      },
+      "goodPrice": {
+        "type": "String"
+      },
+      "billStatus": {
+        "type": "String"
+      },
+      "platForm": {
+        "type": "String"
+      },
+      "receiptRatio": {
+        "type": "String"
+      },
+      "giveRatio": {
+        "type": "String"
+      },
+      "paySum": {
+        "type": "String"
+      },
+      "realSum": {
+        "type": "String"
+      },
+      "accountReceived": {
+        "type": "String"
+      },
+      "accountTime": {
+        "type": "String"
+      },
+      "incomePriceRatio": {
+        "type": "String"
+      },
+      "incomePrice": {
+        "type": "String"
+      },
+      "allowancePriceRatio": {
+        "type": "String"
+      },
+      "allowancePrice": {
+        "type": "String"
+      },
+      "billPlatform": {
+        "type": "String"
+      },
+      "billNo": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "mediaId": {
+        "type": "String"
+      },
+      "mediaName": {
+        "type": "String"
+      },
+      "advId": {
+        "type": "String"
+      },
+      "advName": {
         "type": "String"
       }
     }

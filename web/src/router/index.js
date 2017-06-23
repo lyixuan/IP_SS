@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Statistics from '@/components/Statistics'
 import Importy from '@/components/Importy'
+import Account from '@/components/Account'
 import Deploy from '@/components/Deploy'
 import Upgrade from '@/components/Upgrade'
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/importy',
       name: 'Importy',
       component: Importy
+    },
+    {
+      path: '/account',
+      name: 'Account',
+      component: Account
     },
     {
       path: '/upgrade',
