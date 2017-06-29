@@ -12,7 +12,9 @@ router.get('/bill', function (req, res, next) {
 });
 
 router.get('/bill', function (req, res) {
-    if(req.query.type == "创建订单"){
+    if (req.query.type == "创建订单") {
+        parse(req.query.filename, res, 1);
+    } else if (req.query.type == "结算订单") {
         parse(req.query.filename, res);
     }
 });
@@ -29,7 +31,7 @@ router.get('/delete', function (req, res) {
                 msg: '删除失败'
             };
             res.json(resp);
-        }else{
+        } else {
             var resp = {
                 code: 200,
                 msg: '删除成功'
@@ -41,7 +43,7 @@ router.get('/delete', function (req, res) {
 
 });
 
-function parse(filename, res) {
+function parse(filename, res, n) {
     var resp = {
         code: -1,
         msg: '解析未完成'
@@ -71,17 +73,27 @@ function parse(filename, res) {
     var keyArr = transformKey(keyLine);
     var requests = [];
 
-    for (var i = 1; i < excelData.length; i++) {
-        var curData = excelData[i];
-        if (curData.length == 0) continue;
-        var request = {
-            "method": "POST",
-            "path": "/mcm/api/shareBill",
-            "body": changeToAjax(curData, keyArr)
-        };
-        requests.push(request);
-        count++;
+    if (n == 1) {
+        for (var i = 1; i < excelData.length; i++) {
+            var curData = excelData[i];
+            if (curData.length == 0) continue;
+            var request = {
+                "method": "POST",
+                "path": "/mcm/api/shareBill",
+                "body": changeToAjax(curData, keyArr)
+            };
+            requests.push(request);
+            count++;
+        }
+    } else {
+        for (var i = 1; i < excelData.length; i++) {
+            var curData = excelData[i];
+            if (curData.length == 0) continue;
+            requests.push(changeToAjax(curData, keyArr));
+            count++;
+        }
     }
+
     resp.code = 200;
     resp.msg = "解析成功";
     resp.data = {
