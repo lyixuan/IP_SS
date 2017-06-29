@@ -6,7 +6,7 @@
         <el-button type="primary" style="float: right;"  @click="parseAndImport()" >解析导入数据</el-button>
       </div>
       <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="商品平台">
+        <el-form-item label="订单类型">
           <el-select v-model="form.type" placeholder="请选择数据类型">
             <el-option label="创建订单" value="创建订单"></el-option>
             <el-option label="结算订单" value="结算订单"></el-option>
@@ -67,7 +67,7 @@
     },
     methods: {
       parseAndImport(){
-        if (!this.form.filenames) {
+        if (!this.form.filename) {
           this.$message({
             showClose: true,
             message: '文件名不能为空',
@@ -167,7 +167,7 @@
               message: '插入成功文件已删除',
               type: 'success'
             });
-            _this.form.filenames = '';
+            _this.form.filename = '';
           } else {
             _this.del = false;
             _this.$message({
