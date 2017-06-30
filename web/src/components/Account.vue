@@ -261,6 +261,8 @@
               }
             }).done(function (data, status, header) {
               //success body
+              _this.result.insert = data.length;
+              _this.isSuccess = true;
               _this.$message({
                 showClose: true,
                 message: 'goodBill结算更新成功',

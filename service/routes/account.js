@@ -77,6 +77,15 @@ function parse(filename, res, n) {
         for (var i = 1; i < excelData.length; i++) {
             var curData = excelData[i];
             if (curData.length == 0) continue;
+            var a = changeToAjax(curData, keyArr)
+            if(!a){
+                resp = {
+                    code: -1,
+                    msg: '导入的数据是订单结算，你选择了订单创建'
+                };
+                res.json(resp);
+            }
+            return;
             var request = {
                 "method": "POST",
                 "path": "/mcm/api/shareBill",
@@ -89,6 +98,7 @@ function parse(filename, res, n) {
         for (var i = 1; i < excelData.length; i++) {
             var curData = excelData[i];
             if (curData.length == 0) continue;
+
             requests.push(changeToAjax(curData, keyArr));
             count++;
         }
@@ -112,6 +122,9 @@ function parse(filename, res, n) {
 function changeToAjax(curData, keyArr) {
     var obj = {};
     for (var c = 0; c < keyArr.length; c++) {
+        if(keyArr[c]=='accountTime' && curData[c]){
+            return false
+        }
         obj[keyArr[c]] = curData[c];
     }
     return obj;

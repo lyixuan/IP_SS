@@ -131,11 +131,6 @@
         "type": "Relation",
         "model": "subordinateAgent",
         "foreignKey": "userId"
-      },
-      "userShares": {
-        "type": "Relation",
-        "model": "userShare",
-        "foreignKey": "userId"
       }
     }
   },
@@ -157,7 +152,8 @@
   {
     "base": "File",
     "plural": "file"
-  }, {
+  },
+  {
     "plural": "rule",
     "properties": {
       "id": {
@@ -174,21 +170,25 @@
         "type": "String"
       }
     }
-  },{
-  "plural": "subordinateAgent",
-  "properties": {
-    "id": {
-      "type": "String",
-      "id": true
-    },
-    "userId": {
-      "type": "String"
-    },
-    "username": {
-      "type": "String"
+  },
+  {
+    "plural": "subordinateAgent",
+    "properties": {
+      "id": {
+        "type": "String",
+        "id": true
+      },
+      "userId": {
+        "type": "String"
+      },
+      "username": {
+        "type": "String"
+      },
+      "invateCode": {
+        "type": "String"
+      }
     }
-  }
-},
+  },
   {
     "plural": "goods",
     "properties": {
@@ -259,10 +259,10 @@
       "ticketPWD": {
         "type": "String"
       },
-      "category":{
+      "category": {
         "type": "String"
       },
-      "platform":{
+      "platform": {
         "type": "String"
       }
     }
@@ -289,13 +289,16 @@
       "shareTool": {
         "type": "String"
       },
-      "quanHouPrice":{
+      "quanHouPrice": {
         "type": "String"
       },
-      "yongJinBi":{
+      "yongJinBi": {
         "type": "String"
       },
-      "yongJin":{
+      "yongJin": {
+        "type": "String"
+      },
+      "goodId": {
         "type": "String"
       },
       "goodName": {
@@ -358,10 +361,10 @@
       "ticketPWD": {
         "type": "String"
       },
-      "category":{
+      "category": {
         "type": "String"
       },
-      "platform":{
+      "platform": {
         "type": "String"
       }
     }
@@ -461,6 +464,45 @@
         "id": true
       },
       "userId": {
+        "type": "String"
+      },
+      "userName": {
+        "type": "String"
+      },
+      "createTime": {
+        "type": "String"
+      },
+      "accountTime": {
+        "type": "String"
+      },
+      "billStatus": {
+        "type": "String"
+      },
+      "goodId": {
+        "type": "String"
+      },
+      "goodName": {
+        "type": "String"
+      },
+      "goodPic": {
+        "type": "String"
+      },
+      "goodTKLink": {
+        "type": "String"
+      },
+      "goodShop": {
+        "type": "String"
+      },
+      "goodNum": {
+        "type": "String"
+      },
+      "paySum": {
+        "type": "String"
+      },
+      "yongJin":{
+        "type": "String"
+      },
+      "yongJinBi":{
         "type": "String"
       }
     }
