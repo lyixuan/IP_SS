@@ -181,10 +181,16 @@
       "userId": {
         "type": "String"
       },
-      "username": {
+      "ownUserName": {
         "type": "String"
       },
-      "invateCode": {
+      "lowerUserId": {
+        "type": "String"
+      },
+      "lowerUserName": {
+        "type": "String"
+      },
+      "lowerInvateCode": {
         "type": "String"
       }
     }
