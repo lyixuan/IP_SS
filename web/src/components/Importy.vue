@@ -42,6 +42,10 @@
           成功导入: {{result.insert}} 行
         </p>
       </div>
+      <div class="result" v-if="loading">
+        正在处理，请等待.....
+
+      </div>
       <div class="result2" v-if="isFail">
         导入结果: 失败 --{{time}}
         <p>
@@ -76,6 +80,7 @@
         },
         isSuccess: false,
         isFail: false,
+        loading:false,
         time: '',
         del: true,
       }
@@ -95,6 +100,9 @@
           message: 'excel解析中,请等待...',
           type: 'info'
         });
+        this.isSuccess = false;
+        this.isFail = false;
+        this.loading = true
         this.$resource(BASE_PATH + 'importy/gaoyong').get(params).then((response) => {
 
           if (response.status == 200) {
@@ -145,6 +153,7 @@
             _this.delFile( _this.result.parseFile);
             _this.result.insert = data.length;
             _this.isSuccess = true;
+            _this.loading = false;
             _this.$message({
               showClose: true,
               message: '解析并插入成功',
@@ -155,6 +164,7 @@
           } else {
             _this.result.insert = data.length;
             _this.isFail = true;
+            _this.loading = false;
             _this.$message({
               showClose: true,
               message: '插入失败',
@@ -182,7 +192,7 @@
               message: '插入成功文件已删除',
               type: 'success'
             });
-            _this.form.filenames = '';
+
           } else {
             _this.del = false;
             _this.$message({
